@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  # Job 1 : Tests unitaires
+  # Job 1 : Tests unitaires (Corrigé pour Node.js)
   test:
     name: Tests unitaires
     runs-on: ubuntu-latest
@@ -15,16 +15,16 @@ jobs:
       - name: Checkout du code
         uses: actions/checkout@v4
 
-      - name: Installer Python 3.11
-        uses: actions/setup-python@v5
+      - name: Installer Node.js 20
+        uses: actions/setup-node@v4
         with:
-          python-version: '3.11'
+          node-version: '20'
 
       - name: Installer les dépendances
-        run: pip install -r requirements.txt
+        run: npm ci
 
       - name: Lancer les tests
-        run: pytest test_app.py -v
+        run: npm test
 
   # Job 2 : Build Docker (seulement si tests OK)
   build:
